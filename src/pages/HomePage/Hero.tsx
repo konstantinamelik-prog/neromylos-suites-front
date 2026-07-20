@@ -1,9 +1,9 @@
-import heroImage from "@/assets/hero.png";
+import heroImage from "@/assets/hero2.png";
 
 const Hero = () => {
   return (
     <div
-      className="relative h-[700px] flex flex-col items-center justify-center text-center px-10 bg-cover bg-center"
+      className="relative h-[740px] flex flex-col items-center justify-center text-center px-10 bg-cover bg-center"
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(20,18,15,0.15), rgba(20,18,15,0.55)), url(${heroImage})`,
       }}
