@@ -1,5 +1,7 @@
 import Layout from "@/shared/layout/Layout";
 import Hero from "./Hero";
+import History from "./History";
+import Photos from "./Photos";
 import { RoomsPreview } from "@/features/rooms";
 
 const HomePage = () => {
@@ -7,6 +9,8 @@ const HomePage = () => {
     <Layout>
       <Hero />
       <RoomsPreview />
+      <History />
+      <Photos />
     </Layout>
   );
 };
