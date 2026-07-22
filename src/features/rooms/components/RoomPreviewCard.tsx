@@ -12,7 +12,7 @@ const RoomPreviewCard = ({
   accentClass,
 }: RoomPreviewCardProps) => {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-sm">
+    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:opacity-90 transition-opacity">
       {imageUrl ? (
         <img src={imageUrl} alt={name} className="h-52 w-full object-cover" />
       ) : (
