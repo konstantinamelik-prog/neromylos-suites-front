@@ -10,6 +10,8 @@ import standardBathroom from "@/assets/gallery/standard-bathroom.jpg";
 import standardBathroomFull from "@/assets/gallery/standard-bathroom-full.jpg";
 import superiorRoom from "@/assets/gallery/superior-room.jpg";
 import superiorRoomFull from "@/assets/gallery/superior-room-full.jpg";
+import superiorBathroom from "@/assets/gallery/superior-bathroom.jpg";
+import superiorBathroomFull from "@/assets/gallery/superior-bathroom-full.jpg";
 import suite from "@/assets/gallery/suite.jpg";
 import suiteFull from "@/assets/gallery/suite-full.jpg";
 import suiteBathroom from "@/assets/gallery/suite-bathroom.jpg";
@@ -21,8 +23,9 @@ const galleryImages = [
   { id: 3, src: standardRoom, fullSrc: standardRoomFull, alt: "Δωμάτιο Standard" },
   { id: 4, src: standardBathroom, fullSrc: standardBathroomFull, alt: "Μπάνιο, δωμάτιο Standard" },
   { id: 5, src: superiorRoom, fullSrc: superiorRoomFull, alt: "Δωμάτιο Superior" },
-  { id: 6, src: suite, fullSrc: suiteFull, alt: "Δωμάτιο Suite" },
-  { id: 7, src: suiteBathroom, fullSrc: suiteBathroomFull, alt: "Μπάνιο, Suite" },
+  { id: 6, src: superiorBathroom, fullSrc: superiorBathroomFull, alt: "Δωμάτιο Superior" },
+  { id: 7, src: suite, fullSrc: suiteFull, alt: "Δωμάτιο Suite" },
+  { id: 8, src: suiteBathroom, fullSrc: suiteBathroomFull, alt: "Μπάνιο, Suite" },
 ];
 
 const Photos = () => {
