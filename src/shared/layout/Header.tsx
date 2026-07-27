@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "@/features/auth/AuthProvider";
 import logo from "@/assets/logo.png";
-import {Menu, X} from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "#rooms", label: "Δωμάτια" },
@@ -25,9 +25,9 @@ const Header = () => {
     <nav className="fixed top-0 inset-x-0 z-50 bg-ns-dark/60">
       <div className="flex items-center justify-between px-10 py-2">
 
-        <a href="/">
-          <img src={logo} alt="Neromylos Suites" className="h-26 drop-shadow-lg/60"/>
-        </a>
+        <Link to="/">
+          <img src={logo} alt="Neromylos Suites" className="h-26 drop-shadow-lg/60" />
+        </Link>
 
         <div className="hidden sm:flex items-center justify-around gap-7 text-lg text-shadow-2xs text-ns-cream/75">
           {navLinks.map((link) => (
@@ -57,22 +57,20 @@ const Header = () => {
             </Link>
           )}
 
-          {/* TODO: προς το παρόν κάνει scroll στο #rooms.
-              Όταν βάλω σελίδα αναζήτησης διαθεσιμότητας, να κάνω link εκεί. */}
-          <a
-            href="#rooms"
+          <Link
+            to="/search"
             className="bg-ns-cream text-ns-dark rounded-md px-5 py-2 font-medium hover:opacity-90 transition-opacity"
           >
             Κράτηση
-          </a>
+          </Link>
         </div>
 
         <button
-            type="button"
-            aria-label="Άνοιγμα μενού"
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="sm:hidden text-ns-cream p-2"
+          type="button"
+          aria-label="Άνοιγμα μενού"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className="sm:hidden text-ns-cream p-2"
         >
           {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -112,13 +110,13 @@ const Header = () => {
             </Link>
           )}
 
-          <a
-            href="#rooms"
+          <Link
+            to="/search"
             onClick={() => setIsMenuOpen(false)}
             className="mt-2 w-fit bg-ns-cream text-ns-dark rounded-md px-5 py-2 font-medium hover:opacity-90 transition-opacity"
           >
             Κράτηση
-          </a>
+          </Link>
         </div>
       )}
     </nav>

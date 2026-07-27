@@ -10,24 +10,24 @@ type AuthContextProps = {
   role: string | null;
   loginUser: (fields: LoginFields) => Promise<void>;
   logoutUser: () => void;
-};
+}
 
-type RawJwtPayload = Record<string, unknown>;
+const ROLE_CLAIM = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+
+type RawJwtPayload = {
+  [ROLE_CLAIM]?: string;
+}
+
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 function readRoleFromToken(token: string | null): string | null {
   if (!token) return null;
   try {
-    const payload = jwtDecode<RawJwtPayload>(token);
-    const value =
-      payload["role"] ??
-      payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    return typeof value === "string" ? value : null;
+    return jwtDecode<RawJwtPayload>(token)[ROLE_CLAIM] ?? null;
   } catch {
-    return null;
+      return null;
   }
 }
-
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 const TOKEN_COOKIE_NAME = "neromylos_access_token";
 
@@ -52,13 +52,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     setAccessToken(res.token);
     setRole(readRoleFromToken(res.token));
-  };
+  }
 
   const logoutUser = () => {
     deleteCookie(TOKEN_COOKIE_NAME);
     setAccessToken(null);
     setRole(null);
-  };
+  }
 
   return (
     <AuthContext.Provider
@@ -68,12 +68,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         role,
         loginUser,
         logoutUser,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
 export function useAuth() {
   const ctx = useContext(AuthContext);

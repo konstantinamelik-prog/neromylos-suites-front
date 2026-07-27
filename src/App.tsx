@@ -4,6 +4,7 @@ import HomePage from "@/pages/HomePage";
 import RoomDetailPage from "@/pages/RoomDetailPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
+import SearchPage from "@/pages/SearchPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/rooms/:slug" element={<RoomDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Route>
     </Routes>
   );
