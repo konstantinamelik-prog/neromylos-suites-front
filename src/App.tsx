@@ -1,10 +1,15 @@
 import { Route, Routes } from "react-router";
 import RouterLayout from "@/shared/layout/RouterLayout";
+import ProtectedRoute from "@/shared/layout/ProtectedRoute";
 import HomePage from "@/pages/HomePage";
 import RoomDetailPage from "@/pages/RoomDetailPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import SearchPage from "@/pages/SearchPage";
+import BookingPage from "@/pages/BookingPage";
+import BookingConfirmationPage from "@/pages/BookingConfirmationPage";
+import AdminBookingsPage from "@/pages/AdminBookingsPage";
+import MyBookingsPage from "@/pages/MyBookingsPage";
 
 function App() {
   return (
@@ -15,6 +20,16 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/booking/confirmation" element={<BookingConfirmationPage />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/my-bookings" element={<MyBookingsPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={["ADMIN", "RECEPTIONIST"]} />}>
+          <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+        </Route>
       </Route>
     </Routes>
   );

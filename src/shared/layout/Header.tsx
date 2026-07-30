@@ -41,13 +41,21 @@ const Header = () => {
           ))}
 
           {isAuthenticated ? (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="border border-ns-cream/40 rounded-md px-5 py-2 text-ns-cream hover:bg-ns-cream/10 transition-colors"
-            >
-              Αποσύνδεση
-            </button>
+            <>
+              <Link
+                to="/my-bookings"
+                className="hover:text-ns-cream transition-colors hover:underline underline-offset-8"
+              >
+                Οι κρατήσεις μου
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="border border-ns-cream/40 rounded-md px-5 py-2 text-ns-cream hover:bg-ns-cream/10 transition-colors"
+              >
+                Αποσύνδεση
+              </button>
+            </>
           ) : (
             <Link
               to="/login"
@@ -90,16 +98,25 @@ const Header = () => {
           ))}
 
           {isAuthenticated ? (
-            <button
-              type="button"
-              onClick={() => {
-                handleLogout();
-                setIsMenuOpen(false);
-              }}
-              className="mt-2 w-fit bg-ns-dark/80 border border-ns-cream/40 rounded-md px-5 py-2 text-ns-cream hover:bg-ns-cream/10 transition-colors"
-            >
-              Αποσύνδεση
-            </button>
+            <>
+              <Link
+                to="/my-bookings"
+                onClick={() => setIsMenuOpen(false)}
+                className="py-2 hover:text-ns-cream transition-colors hover:underline underline-offset-8"
+              >
+                Οι κρατήσεις μου
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  handleLogout();
+                  setIsMenuOpen(false);
+                }}
+                className="mt-2 w-fit bg-ns-dark/80 border border-ns-cream/40 rounded-md px-5 py-2 text-ns-cream hover:bg-ns-cream/10 transition-colors"
+              >
+                Αποσύνδεση
+              </button>
+            </>
           ) : (
             <Link
               to="/login"
