@@ -1,5 +1,3 @@
-import type {LoginFields, SignupFields} from "@/features/auth/authSchema";
-
 export type JwtTokenDTO = {
   token: string;
 };
@@ -12,7 +10,10 @@ export type UserReadOnlyDTO = {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const login = async (credentials: LoginFields): Promise<JwtTokenDTO> => {
+export const login = async (credentials: {
+  username: string;
+  password: string;
+}): Promise<JwtTokenDTO> => {
   const response = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -23,15 +24,21 @@ export const login = async (credentials: LoginFields): Promise<JwtTokenDTO> => {
     if (response.status === 401) {
       throw new Error("Λάθος όνομα χρήστη ή κωδικός.");
     }
-    throw new Error("Κάτι πήγε στραβά. Δοκίμασε ξανά.");
+    throw new Error("Κάτι πήγε στραβά. Δοκιμάστε ξανά.");
   }
 
   return response.json();
 };
 
-export const registerMember = async (
-  fields: SignupFields
-): Promise<UserReadOnlyDTO> => {
+export const registerMember = async (fields: {
+  username: string;
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  countryCode?: string;
+}): Promise<UserReadOnlyDTO> => {
   const response = await fetch(`${API_URL}/auth/register/member`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,7 +49,7 @@ export const registerMember = async (
     if (response.status === 409) {
       throw new Error("Υπάρχει ήδη λογαριασμός με αυτό το username ή email.");
     }
-    throw new Error("Η εγγραφή απέτυχε. Έλεγξε τα στοιχεία και δοκίμασε ξανά.");
+    throw new Error("Η εγγραφή απέτυχε. Ελέγξτε τα στοιχεία και δοκιμάστε ξανά.");
   }
 
   return response.json();
