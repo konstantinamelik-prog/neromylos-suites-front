@@ -5,8 +5,8 @@ import { rooms } from "../data/rooms";
 const RoomsPreview = () => {
   return (
     <div id="rooms" className="px-10 py-14 max-w-5xl mx-auto">
-      <p className="text-xs uppercase tracking-wide text-ns-stone text-center mb-2">
-        Τα δωμάτια μας
+      <p className="text-xs text-ns-stone text-center mb-2">
+        ΤΑ ΔΩΜΑΤΙΑ ΜΑΣ
       </p>
       <h2 className="font-serif text-2xl text-ns-dark text-center mb-10">
         Επίλεξε τη διαμονή σου
