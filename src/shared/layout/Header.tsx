@@ -5,10 +5,10 @@ import logo from "@/assets/logo.png";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "#rooms", label: "Δωμάτια" },
-  { href: "#history", label: "Ιστορία" },
-  { href: "#photos", label: "Φωτογραφίες" },
-  { href: "#contact", label: "Επικοινωνία" },
+  { href: "/#rooms", label: "Δωμάτια" },
+  { href: "/#history", label: "Ιστορία" },
+  { href: "/#photos", label: "Φωτογραφίες" },
+  { href: "/#contact", label: "Επικοινωνία" },
 ];
 
 const Header = () => {
@@ -31,22 +31,22 @@ const Header = () => {
 
         <div className="hidden sm:flex items-center justify-around gap-7 text-lg text-shadow-2xs text-ns-cream/75">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="hover:text-ns-cream transition-colors hover:underline underline-offset-8"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
 
           {isAuthenticated ? (
             <>
               <Link
-                to="/my-bookings"
+                to={isStaff ? "/admin/bookings" : "/my-bookings"}
                 className="hover:text-ns-cream transition-colors hover:underline underline-offset-8"
               >
-                Οι κρατήσεις μου
+                {isStaff ? "Διαχείριση κρατήσεων" : "Οι κρατήσεις μου"}
               </Link>
               <button
                 type="button"
@@ -87,14 +87,14 @@ const Header = () => {
       {isMenuOpen && (
         <div className="sm:hidden flex flex-col gap-1 px-10 pb-5 bg-ns-dark/10 text-lg text-ns-cream/85">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               onClick={() => setIsMenuOpen(false)}
               className="py-2 hover:text-ns-cream transition-colors hover:underline underline-offset-8"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
 
           {isAuthenticated ? (
