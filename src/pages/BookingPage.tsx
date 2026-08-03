@@ -68,6 +68,7 @@ export default function BookingPage() {
     try {
       const booking = await createBooking({
         ...data,
+        countryCode: data.countryCode ? data.countryCode : undefined,
         checkIn: state.checkIn,
         checkOut: state.checkOut,
         numberOfGuests: state.numberOfGuests,
