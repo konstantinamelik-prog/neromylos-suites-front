@@ -8,6 +8,7 @@ import type { BookingReadOnlyDTO } from "@/features/bookings/bookingsApi";
 export default function MyBookingsPage() {
   const { userId } = useAuth();
   const [bookings, setBookings] = useState<BookingReadOnlyDTO[] | null>(null);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (!userId) return;
@@ -15,6 +16,7 @@ export default function MyBookingsPage() {
     getMemberBookings(userId)
       .then(setBookings)
       .catch((error) => {
+        setHasError(true);
         toast.error(error instanceof Error ? error.message : "Κάτι πήγε στραβά.");
       });
   }, [userId]);
@@ -25,7 +27,15 @@ export default function MyBookingsPage() {
         Οι κρατήσεις μου
       </h1>
 
-      {bookings === null && <p className="text-ns-stone text-center">Φόρτωση...</p>}
+      {bookings === null && !hasError && (
+        <p className="text-ns-stone text-center">Φόρτωση...</p>
+      )}
+
+      {hasError && (
+        <p className="text-ns-stone text-center py-12">
+          Δεν ήταν δυνατή η ανάκτηση των κρατήσεών σας.
+        </p>
+      )}
 
       {bookings && bookings.length === 0 && (
         <p className="text-ns-stone text-center py-12">
