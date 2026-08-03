@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { getMemberBookings } from "@/features/auth/membersApi";
 import type { BookingReadOnlyDTO } from "@/features/bookings/bookingsApi";
+import { formatDateOnly } from "@/shared/lib/dates";
 
 export default function MyBookingsPage() {
   const { userId } = useAuth();
@@ -66,8 +67,8 @@ export default function MyBookingsPage() {
                 {booking.roomNames.join(", ")}
               </p>
               <p className="text-sm text-ns-stone">
-                {booking.checkIn} → {booking.checkOut} · {booking.numberOfGuests}{" "}
-                επισκέπτες
+                {formatDateOnly(booking.checkIn)} → {formatDateOnly(booking.checkOut)} ·{" "}
+                {booking.numberOfGuests} επισκέπτες
               </p>
               <p className="text-sm text-ns-dark font-medium mt-1">
                 {booking.totalPrice}€
