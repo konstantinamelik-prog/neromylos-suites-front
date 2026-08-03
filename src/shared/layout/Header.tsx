@@ -11,10 +11,14 @@ const navLinks = [
   { href: "/#contact", label: "Επικοινωνία" },
 ];
 
+const ADMIN_ROLES = ["ADMIN", "RECEPTIONIST"];
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, logoutUser } = useAuth();
+  const { isAuthenticated, role, logoutUser } = useAuth();
   const navigate = useNavigate();
+
+  const isStaff = !!role && ADMIN_ROLES.includes(role);
 
   const handleLogout = () => {
     logoutUser();
@@ -100,11 +104,11 @@ const Header = () => {
           {isAuthenticated ? (
             <>
               <Link
-                to="/my-bookings"
+                to={isStaff ? "/admin/bookings" : "/my-bookings"}
                 onClick={() => setIsMenuOpen(false)}
                 className="py-2 hover:text-ns-cream transition-colors hover:underline underline-offset-8"
               >
-                Οι κρατήσεις μου
+                {isStaff ? "Διαχείριση κρατήσεων" : "Οι κρατήσεις μου"}
               </Link>
               <button
                 type="button"
