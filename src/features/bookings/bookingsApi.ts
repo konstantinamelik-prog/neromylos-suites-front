@@ -78,6 +78,40 @@ export const createBooking = async (
   return response.json();
 };
 
+export const updateBookingStatus = async (
+  bookingId: number,
+  status: string
+): Promise<BookingReadOnlyDTO> => {
+  const token = getCookie(TOKEN_COOKIE_NAME);
+
+  const response = await fetch(`${API_URL}/bookings/${bookingId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Δεν ήταν δυνατή η ενημέρωση της κατάστασης.");
+  }
+
+  return response.json();
+};
+
+export const deleteBooking = async (bookingId: number): Promise<void> => {
+  const token = getCookie(TOKEN_COOKIE_NAME);
+
+  const response = await fetch(`${API_URL}/bookings/${bookingId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error("Δεν ήταν δυνατή η διαγραφή της κράτησης.");
+  }
+};
 export type PaginatedResult<T> = {
   data: T[];
   totalRecords: number;
@@ -86,18 +120,36 @@ export type PaginatedResult<T> = {
   totalPages: number;
 };
 
+export type BookingFilters = {
+  status?: string;
+  checkIn?: string;
+  checkOut?: string;
+  lastname?: string;
+  sortBy?: string;
+  sortDescending?: boolean;
+};
+
 export const getPaginatedBookings = async (
   pageNumber: number,
-  pageSize: number
+  pageSize: number,
+  filters?: BookingFilters
 ): Promise<PaginatedResult<BookingReadOnlyDTO>> => {
   const token = getCookie(TOKEN_COOKIE_NAME);
 
-  const response = await fetch(
-    `${API_URL}/bookings?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const params = new URLSearchParams({
+    pageNumber: String(pageNumber),
+    pageSize: String(pageSize),
+  });
+  if (filters?.status) params.set("status", filters.status);
+  if (filters?.checkIn) params.set("checkIn", filters.checkIn);
+  if (filters?.checkOut) params.set("checkOut", filters.checkOut);
+  if (filters?.lastname) params.set("lastname", filters.lastname);
+  if (filters?.sortBy) params.set("sortBy", filters.sortBy);
+  if (filters?.sortDescending) params.set("sortDescending", "true");
+
+  const response = await fetch(`${API_URL}/bookings?${params}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (!response.ok) {
     throw new Error("Δεν ήταν δυνατή η ανάκτηση των κρατήσεων.");
