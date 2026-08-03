@@ -47,6 +47,7 @@ export default function AdminBookingsPage() {
                 <th className="px-4 py-3">Δωμάτια</th>
                 <th className="px-4 py-3">Άφιξη</th>
                 <th className="px-4 py-3">Αναχώρηση</th>
+                <th className="px-4 py-3">Ονοματεπώνυμο</th>
                 <th className="px-4 py-3">Επισκέπτες</th>
                 <th className="px-4 py-3">Κόστος</th>
                 <th className="px-4 py-3">Κατάσταση</th>
@@ -61,6 +62,9 @@ export default function AdminBookingsPage() {
                   </td>
                   <td className="px-4 py-3 text-ns-stone">{booking.checkIn}</td>
                   <td className="px-4 py-3 text-ns-stone">{booking.checkOut}</td>
+                  <td className="px-4 py-3 text-ns-stone">
+                    {booking.guestName}
+                  </td>
                   <td className="px-4 py-3 text-ns-stone">
                     {booking.numberOfGuests}
                   </td>

@@ -58,6 +58,7 @@ export type BookingReadOnlyDTO = {
   status: string;
   userId: number | null;
   visitorId: number | null;
+  guestName: string;
   roomNames: string[];
 };
 
