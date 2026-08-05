@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { createBooking } from "@/features/bookings/bookingsApi";
 import { type BookingFields, bookingSchema } from "@/features/bookings/bookingSchema";
 import { useAuth } from "@/features/auth/AuthProvider";
-import { getMemberByUsername } from "@/features/auth/membersApi";
+import { getMemberByUsername } from "@/features/members/membersApi";
 
 type BookingLocationState = {
   roomIds: number[];

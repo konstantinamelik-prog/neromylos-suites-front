@@ -9,6 +9,7 @@ import SearchPage from "@/pages/SearchPage";
 import BookingPage from "@/pages/BookingPage";
 import BookingConfirmationPage from "@/pages/BookingConfirmationPage";
 import AdminBookingsPage from "@/pages/AdminBookingsPage";
+import AdminMembersPage from "@/pages/AdminMembersPage";
 import MyBookingsPage from "@/pages/MyBookingsPage";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={["ADMIN", "RECEPTIONIST"]} />}>
           <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+          <Route path="/admin/members" element={<AdminMembersPage />} />
         </Route>
       </Route>
     </Routes>

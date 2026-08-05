@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Link } from "react-router";
 import { useAuth } from "@/features/auth/AuthProvider";
-import { getMemberBookings } from "@/features/auth/membersApi";
+import { getMemberBookings } from "@/features/members/membersApi";
 import type { BookingReadOnlyDTO } from "@/features/bookings/bookingsApi";
 import { formatDateOnly } from "@/shared/lib/dates";
 

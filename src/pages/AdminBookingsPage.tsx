@@ -4,6 +4,7 @@ import { Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/AuthProvider";
 import { formatDateOnly } from "@/shared/lib/dates";
+import AdminTabs from "@/shared/layout/AdminTabs";
 import {
   getPaginatedBookings,
   updateBookingStatus,
@@ -149,7 +150,8 @@ export default function AdminBookingsPage() {
 
   return (
     <div className="pt-32 pb-20 px-10 max-w-6xl mx-auto">
-      <h1 className="font-serif text-2xl text-ns-dark mb-8">Κρατήσεις</h1>
+      <h1 className="font-serif text-2xl text-ns-dark mb-6">Διαχείριση</h1>
+      <AdminTabs />
 
       <div className="flex flex-wrap items-end gap-4 mb-6 p-4 border border-ns-stone-light rounded bg-white shadow">
         <div>
