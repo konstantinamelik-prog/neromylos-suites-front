@@ -1,6 +1,6 @@
-import { getCookie } from "src/shared/lib/cookies";
-import { TOKEN_COOKIE_NAME } from "../auth/AuthProvider";
-import type { PaginatedResult } from "src/features/bookings/bookingsApi";
+import { getCookie } from "@/shared/lib/cookies";
+import { TOKEN_COOKIE_NAME } from "@/features/auth/AuthProvider";
+import type { PaginatedResult } from "@/features/bookings/bookingsApi";
 
 export type MemberReadOnlyDTO = {
   id: number;
@@ -10,15 +10,6 @@ export type MemberReadOnlyDTO = {
   lastname: string;
   phoneNumber: string;
   countryCode: string | null;
-};
-
-export type UserReadOnlyDTO = {
-  id: number;
-  username: string;
-  email: string;
-  firstname: string;
-  lastname: string;
-  userRole: string;
 };
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -41,7 +32,7 @@ export const getMemberByUsername = async (
 
 export const getMemberBookings = async (
   userId: number
-): Promise<import("src/features/bookings/bookingsApi").BookingReadOnlyDTO[]> => {
+): Promise<import("@/features/bookings/bookingsApi").BookingReadOnlyDTO[]> => {
   const token = getCookie(TOKEN_COOKIE_NAME);
 
   const response = await fetch(`${API_URL}/members/bookings-by-userId/${userId}`, {
@@ -55,16 +46,47 @@ export const getMemberBookings = async (
   return response.json();
 };
 
+export const deleteUser = async (userId: number): Promise<void> => {
+  const token = getCookie(TOKEN_COOKIE_NAME);
+
+  const response = await fetch(`${API_URL}/users/${userId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    if (response.status === 409) {
+      throw new Error(
+        "Δεν μπορεί να διαγραφεί - έχει ενεργές ή ολοκληρωμένες κρατήσεις."
+      );
+    }
+    throw new Error("Δεν ήταν δυνατή η διαγραφή του μέλους.");
+  }
+};
+export type MemberFilters = {
+  lastname?: string;
+  email?: string;
+  countryCode?: string;
+};
+
 export const getPaginatedMembers = async (
   pageNumber: number,
-  pageSize: number
+  pageSize: number,
+  filters?: MemberFilters
 ): Promise<PaginatedResult<MemberReadOnlyDTO>> => {
   const token = getCookie(TOKEN_COOKIE_NAME);
 
-  const response = await fetch(
-    `${API_URL}/members?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
+  const params = new URLSearchParams({
+    pageNumber: String(pageNumber),
+    pageSize: String(pageSize),
+  });
+  if (filters?.lastname) params.set("lastname", filters.lastname);
+  if (filters?.email) params.set("email", filters.email);
+  if (filters?.countryCode) params.set("countryCode", filters.countryCode);
+
+  const response = await fetch(`${API_URL}/members?${params}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (!response.ok) {
     throw new Error("Δεν ήταν δυνατή η ανάκτηση των μελών.");
